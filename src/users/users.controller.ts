@@ -1,5 +1,6 @@
-import { Controller, Get, Post,Put,Delete, Patch } from '@nestjs/common';
+import { Controller, Get, Post,Put,Delete, Patch, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller()
 export class UsersController {
@@ -12,11 +13,11 @@ getAllUsers(){
 }
 
 @Post('/users')
- createUsers(){
 
-     //con esto se puede buscar una bd
-     //se puede buscar una peticion a otro backend o api
-   return 'Creando usuario'
+ createUsers(@Body()user:CreateUserDto){
+
+   return this.usersService.createUser(user);
+  //return 'This is a post request
  }
  @Put('/users')
  updateUsers(){

@@ -1,6 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query} from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { query } from "express";
+import { CreateTaskDto } from "./dto/create.tasks.dto";
+import { UpdateTaskDto } from "./dto/update.tasks.dto";
+
+
+
 
 @Controller('/tasks')
 export class TasksController{
@@ -23,18 +28,22 @@ export class TasksController{
       return this.tasksService.getTask(parseInt(id));
     }
     @Post()
-    createTasks(@Body()task:any){
+    
+    createTask(@Body()task:CreateTaskDto){
+       return this.tasksService.createTask(task);
+    }
+   
+    createTasks(@Body()task:CreateTaskDto){
         console.log(task)
         //con esto se puede b uscar una bd
         //se puede buscar una peticion a otro backend o api
       return this.tasksService.createTask(task);
     }
     @Put()
-    updateTasks(){
+    updateTasks(@Body()task:UpdateTaskDto){
 
-        //con esto se puede buscar una bd
-        //se puede buscar una peticion a otro backend o api
-      return this.tasksService.updateTasks();
+       
+      return this.tasksService.updateTasks(task);
     }
     @Delete()
     deleteTasks(){
