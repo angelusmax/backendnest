@@ -3,9 +3,10 @@ import { TasksService } from "./tasks.service";
 import { query } from "express";
 import { CreateTaskDto } from "./dto/create.tasks.dto";
 import { UpdateTaskDto } from "./dto/update.tasks.dto";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 
-
+@ApiTags('Tasks')
 
 @Controller('/tasks')
 export class TasksController{
@@ -14,8 +15,9 @@ export class TasksController{
    constructor(private tasksService:TasksService){
     
    }
-
+   
     @Get()
+    @ApiOperation({ summary: 'GEt all tasks'})
     getAllTasks(@Query()query:any){
       console.log(query)
         //con esto se puede buscar una bd
